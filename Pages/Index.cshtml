@@ -1,0 +1,21 @@
+﻿@page
+@model IndexModel
+@using razorweb.models 
+@{
+    ViewData["Title"] = "Home page";
+
+    var posts = ViewData["posts"]  as List<Article>;
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<ol>
+    @foreach (var post in posts)
+    {
+        <li>@post.Title</li>
+    } 
+</ol>
