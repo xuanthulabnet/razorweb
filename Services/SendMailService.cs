@@ -52,6 +52,7 @@ public class SendMailService : IEmailSender {
             smtp.Authenticate (mailSettings.Mail, mailSettings.Password);
             await smtp.SendAsync(message);
         }
+        
         catch (Exception ex) {
             // Gửi mail thất bại, nội dung email sẽ lưu vào thư mục mailssave
             System.IO.Directory.CreateDirectory("mailssave");
