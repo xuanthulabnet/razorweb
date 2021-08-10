@@ -35,10 +35,11 @@ namespace razorweb.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
+            [Display(Name = "Nhập mật khẩu mới")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Lặp lại mật khẩu")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
@@ -49,7 +50,7 @@ namespace razorweb.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest("Mã token không chính xác.");
             }
             else
             {
@@ -69,6 +70,7 @@ namespace razorweb.Areas.Identity.Pages.Account
             }
 
             var user = await _userManager.FindByEmailAsync(Input.Email);
+
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -76,6 +78,7 @@ namespace razorweb.Areas.Identity.Pages.Account
             }
 
             var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
+            
             if (result.Succeeded)
             {
                 return RedirectToPage("./ResetPasswordConfirmation");
