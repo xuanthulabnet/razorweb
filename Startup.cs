@@ -85,6 +85,24 @@ namespace razorweb
                 options.AccessDeniedPath = "/khongduoctruycap.html";
             });  
 
+            services.AddAuthentication()
+                    .AddGoogle(options => {
+                        var gconfig = Configuration.GetSection("Authentication:Google");
+                        options.ClientId = gconfig["ClientId"];
+                        options.ClientSecret = gconfig["ClientSecret"];
+                        // https://localhost:5001/signin-google
+                        options.CallbackPath =  "/dang-nhap-tu-google";
+                    })
+                    .AddFacebook(options => {
+                        var fconfig = Configuration.GetSection("Authentication:Facebook");
+                        options.AppId  = fconfig["AppId"];
+                        options.AppSecret = fconfig["AppSecret"];
+                        options.CallbackPath =  "/dang-nhap-tu-facebook";
+                    })
+                    // .AddTwitter()
+                    // .AddMicrosoftAccount()
+                    ;
+
             
         }
 
@@ -139,6 +157,9 @@ Identity:
  /Identity/Account/Manage
 
  dotnet aspnet-codegenerator identity -dc razorweb.models.MyBlogContext
+
+CallbackPath:
+ https://localhost:5001/dang-nhap-tu-google
  
 
 */

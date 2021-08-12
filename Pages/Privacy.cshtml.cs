@@ -19,6 +19,7 @@ namespace razorweb.Pages
 
         public void OnGet()
         {
+            throw new Exception();
         }
     }
 }
