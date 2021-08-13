@@ -147,6 +147,7 @@ dotnet aspnet-codegenerator razorpage -m razorweb.models.Article -dc razorweb.mo
 
 Identity:
     - Athentication: Xác định danh tính  -> Login, Logout ...
+    
     - Authorization: Xác thực quyền truy cập
     - Quản lý user: Sign Up, User, Role  ...
 
