@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,7 +36,10 @@ namespace razorweb
             services.AddSingleton<IEmailSender, SendMailService>();
 
 
-            services.AddRazorPages();
+            services.AddRazorPages(options => {
+                
+            });
+
             services.AddDbContext<MyBlogContext>(options => {
                 string connectString = Configuration.GetConnectionString("MyBlogContext");
                 options.UseSqlServer(connectString);
@@ -103,6 +107,8 @@ namespace razorweb
                     // .AddMicrosoftAccount()
                     ;
 
+                services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
+
             
         }
 
@@ -149,6 +155,23 @@ Identity:
     - Athentication: Xác định danh tính  -> Login, Logout ...
     
     - Authorization: Xác thực quyền truy cập
+      Role-based authorization - xác thực quyền theo vai trò
+      - Role (vai tro): (Admin, Editor, Manager, Member ...)
+      
+      Areas/Admin/Pages/Role
+        Index
+        Create
+        Edit
+        Delete
+
+        dotnet new page -n Index -o Areas/Admin/Pages/Role -na App.Admin.Role
+        dotnet new page -n Create -o Areas/Admin/Pages/Role -na App.Admin.Role
+
+        [Authorize] - Controller, Action, PageModel -> Dang nhap
+
+
+
+
     - Quản lý user: Sign Up, User, Role  ...
 
 

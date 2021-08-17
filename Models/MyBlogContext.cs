@@ -9,6 +9,8 @@ namespace razorweb.models
         public MyBlogContext(DbContextOptions<MyBlogContext> options) : base(options)
         {
           //..
+          // this.Roles
+          // IdentityRole<string>
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
