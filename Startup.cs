@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using App.Services;
 using Microsoft.AspNetCore.Builder;
@@ -109,6 +110,35 @@ namespace razorweb
 
                 services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
 
+                services.AddAuthorization(options => {
+
+                    options.AddPolicy("AllowEditRole", policyBuilder => {
+                        // Dieu kien cua Policy
+                        policyBuilder.RequireAuthenticatedUser();
+                        // policyBuilder.RequireRole("Admin");
+                        // policyBuilder.RequireRole("Editor");
+
+                        // policyBuilder.RequireClaim("manage.role", "add", "update");
+                        policyBuilder.RequireClaim("canedit", "user");
+                        
+
+                        // Claims-based authorization
+                        // policyBuilder.RequireClaim("Ten Claim", "giatri1", "giatri2");
+                        // policyBuilder.RequireClaim("Ten Claim", new string[] {
+                        //     "giatri1",
+                        //     "giatri2"
+                        // });
+
+                        // IdentityRoleClaim<string> claim1; ->DbContext
+                        // IdentityUserClaim<string> claim2; ->DbContext
+                        // Claim claim3; -> tu dich vu cua Identity
+
+                    });
+
+                   
+
+                });
+
             
         }
 
@@ -155,8 +185,25 @@ Identity:
     - Athentication: Xác định danh tính  -> Login, Logout ...
     
     - Authorization: Xác thực quyền truy cập
-      Role-based authorization - xác thực quyền theo vai trò
+
+      * Role-based authorization - xác thực quyền theo vai trò
       - Role (vai tro): (Admin, Editor, Manager, Member ...)
+
+      * Policy-based authorization
+      * Claims-based authorization:
+            Claims -> Đặc tính, tính chất của đối tượng (User)
+
+            Bằng lái B2 (Role) -> được lái 4 chỗ
+            - Ngày sinh -> claim
+            - Nơi sinh -> claim
+
+            Mua rượu ( > 18 tuổi)
+             - Kiểm tra ngày sinh: Claims-based authorization
+            
+
+            
+
+
       
       Areas/Admin/Pages/Role
         Index
@@ -166,6 +213,9 @@ Identity:
 
         dotnet new page -n Index -o Areas/Admin/Pages/Role -na App.Admin.Role
         dotnet new page -n Create -o Areas/Admin/Pages/Role -na App.Admin.Role
+        dotnet new page -n EditUserRoleClaim -o Areas/Admin/Pages/User -na App.Admin.User
+
+
 
         [Authorize] - Controller, Action, PageModel -> Dang nhap
 

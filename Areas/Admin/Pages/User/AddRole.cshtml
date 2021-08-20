@@ -28,6 +28,35 @@
             <button type="submit" class="btn btn-primary">Cập nhật</button>
             <a class="btn btn-primary" asp-page="./Index">Danh sách thành viên</a>
         </form>
+        <hr>
+        <p>Các claim của user có được từ role:</p>
+        @if (Model.claimsInRole.Count >  0)
+        {
+            <ul>
+                @foreach (var claim in Model.claimsInRole)
+                {
+                    <li>@claim.ClaimType : @claim.ClaimValue</li>
+                }
+            </ul>
+        }
+        <p>Các claim riêng:
+            <a asp-page="./EditUserRoleClaim" asp-page-handler="AddClaim" asp-route-userid="@Model.user.Id">+ Thêm claim riêng</a>     
+        </p>
+        @if (Model.claimsInUserClaim.Count >  0)
+        {
+            <ul>
+                @foreach (var claim in Model.claimsInUserClaim)
+                {
+                    <li>
+                        <a asp-page="./EditUserRoleClaim" asp-page-handler="EditClaim" asp-route-claimid="@claim.Id">@claim.ClaimType : @claim.ClaimValue</a>
+                    </li>
+                }
+            </ul>
+        }
+
+
+
+
     </div>
 </div>
 
