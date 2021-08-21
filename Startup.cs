@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using App.Security.Requirements;
 using App.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -113,31 +115,30 @@ namespace razorweb
                 services.AddAuthorization(options => {
 
                     options.AddPolicy("AllowEditRole", policyBuilder => {
-                        // Dieu kien cua Policy
                         policyBuilder.RequireAuthenticatedUser();
-                        // policyBuilder.RequireRole("Admin");
-                        // policyBuilder.RequireRole("Editor");
-
-                        // policyBuilder.RequireClaim("manage.role", "add", "update");
                         policyBuilder.RequireClaim("canedit", "user");
-                        
-
-                        // Claims-based authorization
-                        // policyBuilder.RequireClaim("Ten Claim", "giatri1", "giatri2");
-                        // policyBuilder.RequireClaim("Ten Claim", new string[] {
-                        //     "giatri1",
-                        //     "giatri2"
-                        // });
-
-                        // IdentityRoleClaim<string> claim1; ->DbContext
-                        // IdentityUserClaim<string> claim2; ->DbContext
-                        // Claim claim3; -> tu dich vu cua Identity
-
                     });
 
-                   
+                    options.AddPolicy("InGenZ", policyBuilder => {
+                        policyBuilder.RequireAuthenticatedUser();
+                        // policyBuilder.RequireClaim("canedit", "user");
+                        policyBuilder.Requirements.Add(new GenZRequirement()); // GenZRequirement
+
+                        // new GenZRequirement() -> Authorization handler
+
+                    });   
+
+                    options.AddPolicy("ShowAdminMenu", pb => {
+                        pb.RequireRole("Admin");
+                    });      
+
+                    options.AddPolicy("CanUpdateArticle", builder => {
+                        builder.Requirements.Add(new ArticleUpdateRequirement()); 
+                    });      
 
                 });
+
+                services.AddTransient<IAuthorizationHandler, AppAuthorizationHandler>();
 
             
         }
@@ -199,7 +200,7 @@ Identity:
 
             Mua rượu ( > 18 tuổi)
              - Kiểm tra ngày sinh: Claims-based authorization
-            
+        
 
             
 
