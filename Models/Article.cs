@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 //CRUD
-namespace razorweb.models 
+namespace App.Models 
 {
     // [Table("posts")] razorweb.models.Article
     public class Article {

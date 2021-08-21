@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using razorweb.models;
-namespace razorweb.Areas.Identity.Pages.Account.Manage
+using App.Models;
+namespace App.Areas.Identity.Pages.Account.Manage
 {
     [Authorize]
     public class ChangePasswordModel : PageModel

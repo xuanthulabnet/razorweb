@@ -6,17 +6,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using razorweb.models;
+using App.Models;
 
-namespace razorweb.Pages.Blog
+namespace App.Pages.Blog
 {
 
     [Authorize]
     public class IndexModel : PageModel
     {
-        private readonly razorweb.models.MyBlogContext _context;
+        private readonly App.Models.AppDbContext _context;
 
-        public IndexModel(razorweb.models.MyBlogContext context)
+        public IndexModel(App.Models.AppDbContext context)
         {
             _context = context;
         }

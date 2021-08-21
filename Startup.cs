@@ -16,9 +16,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using razorweb.models;
+using App.Models;
 
-namespace razorweb
+namespace App
 {
     public class Startup
     {
@@ -43,14 +43,14 @@ namespace razorweb
                 
             });
 
-            services.AddDbContext<MyBlogContext>(options => {
+            services.AddDbContext<AppDbContext>(options => {
                 string connectString = Configuration.GetConnectionString("MyBlogContext");
                 options.UseSqlServer(connectString);
             });
 
             // Dang ky Identity
             services.AddIdentity<AppUser, IdentityRole>()
-                    .AddEntityFrameworkStores<MyBlogContext>()
+                    .AddEntityFrameworkStores<AppDbContext>()
                     .AddDefaultTokenProviders();
 
             // services.AddDefaultIdentity<AppUser>()

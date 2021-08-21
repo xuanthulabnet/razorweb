@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using razorweb.models;
+using App.Models;
 
-namespace razorweb.Pages
+namespace App.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
 
-        private readonly MyBlogContext myBlogContext;
+        private readonly AppDbContext myBlogContext;
 
-        public IndexModel(ILogger<IndexModel> logger, MyBlogContext _myContext)
+        public IndexModel(ILogger<IndexModel> logger, AppDbContext _myContext)
         {
             _logger = logger;
             myBlogContext = _myContext;

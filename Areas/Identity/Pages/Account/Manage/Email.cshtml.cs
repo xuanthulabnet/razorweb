@@ -10,10 +10,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using razorweb.models;
+using App.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace razorweb.Areas.Identity.Pages.Account.Manage
+namespace App.Areas.Identity.Pages.Account.Manage
 {
     [Authorize]
     public partial class EmailModel : PageModel

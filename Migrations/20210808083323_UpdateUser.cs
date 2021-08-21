@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace razorweb.Migrations
+namespace App.Migrations
 {
     public partial class UpdateUser : Migration
     {
